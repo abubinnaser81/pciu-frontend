@@ -1,0 +1,288 @@
+import type { IconName } from "@/lib/icons";
+
+/**--------------- Hero section ------------------ */
+
+export interface HeroSlide {
+  image: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface HeroStat {
+  icon: IconName;
+  value: string;
+  label: string;
+}
+
+export interface HeroContent {
+  slides: HeroSlide[];
+  stats: HeroStat[];
+}
+
+/** Generic API response envelope */
+export interface ApiResponse<T> {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: T;
+}
+
+export interface NewsArticle {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  body: string | null;
+  coverImageUrl?: string | null;
+  imageUrl?: string | null;
+  multipleImage?: string[] | null;
+  category: string | null;
+  author: string | null;
+  status: boolean;
+  deletedAt?: string | null;
+  createdAt: string;
+  publishedAt?: string | null;
+}
+
+export interface HomeEvent {
+  id?: number;
+  departmentId?: number | null;
+  title: string;
+  slug: string;
+  description?: string | null;
+  category?: string | null;
+  badgeLabel?: string | null;
+  startDateTime: string;
+  endDateTime?: string | null;
+  allDay?: boolean;
+  location?: string | null;
+  coverImageUrl?: string | null;
+  multipleImage?: string[] | null;
+  url?: string | null;
+  isActive: boolean;
+  deletedAt?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  sortOrder?: number;
+}
+
+/** Hero slider (from /home/sliders API) */
+export interface HeroSliderItem {
+  id: number;
+  heading: string;
+  subheading: string | null;
+  image: string;
+  ctaLabel: string | null;
+  ctaUrl: string | null;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+/**--------------- Hero section ------------------ */
+
+/**--------------- starts,ts-----------*/
+export interface PageSettingItem {
+  id: number;
+  pageId: number;
+  key: string;
+  value: string;
+  status: boolean;
+}
+
+export interface StatItem {
+  id: number;
+  key: string;
+  label: string;
+  value: string;
+}
+
+/**--------------- starts,ts-----------*/
+
+/** Home notices (from /home/notices API) */
+export interface NoticeItem {
+  id: number;
+  title?: string | null;
+  badgeLabel?: string | null;
+  badgeColor?: string | null;
+  icon?: IconName | null;
+  category?: string | null;
+  pdfUrl?: string | null;
+  noticeDate?: string | null;
+  isActive: boolean;
+  isHome: boolean;
+  sortOrder?: number;
+}
+
+/** Home notices (from /home/notices API) */
+
+/** VC message */
+// export interface VCMessageContent {
+//   name: string;
+//   title: string;
+//   message: string;
+//   photo: string;
+// }
+
+/** Vice Chancellor (from /home/vc API) */
+export interface VCEducationEntry {
+  id?: number;
+  teacherId?: number;
+  degree: string;
+  institution?: string | null;
+  educationYear?: string | null;
+  eduOrder?: number | null;
+}
+
+export interface VCInfo {
+  id: number;
+  name: string;
+  slug: string;
+  imageUrl: string | null;
+  office: string | null;
+  designation: string | null;
+  shortBio: string | null;
+  bio?: string | null;
+  education?: VCEducationEntry[] | null;
+  googleScholarUrl: string | null;
+  researchgateUrl: string | null;
+  linkedinUrl: string | null;
+  facebookUrl: string | null;
+  twitterUrl: string | null;
+  websiteUrl: string | string[] | null;
+}
+/** Vice Chancellor (from /home/vc API) */
+
+/** Program finder */
+export interface Program {
+  title: string;
+  degree: string;
+  level: "Undergraduate" | "Graduate";
+  duration: string;
+  faculty: string;
+  description: string;
+  href: string;
+}
+
+/** Faculty (from /home/faculties API) */
+export interface FacultyDepartment {
+  id: number;
+  name: string;
+  shortName: string | null;
+  slug: string;
+}
+export interface FacultyDean {
+  id: number;
+  name: string;
+  designation: string | null;
+  imageUrl: string | null;
+}
+
+export interface FacultyItem {
+  id: number;
+  name: string;
+  slug: string;
+  about: string | null;
+  dean: FacultyDean | null;
+  departments: FacultyDepartment[];
+}
+/** Faculty (from /home/faculties API) */
+
+/** Faculties */
+export interface Faculty {
+  id: string;
+  icon: IconName;
+  name: string;
+  description: string;
+  departments: string[];
+  bg: string;
+}
+
+/** Admissions */
+export interface AdmissionCard {
+  icon: IconName;
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonVariant: "highlight" | "accent";
+}
+
+export interface AdmissionsContent {
+  badge: string;
+  heading: string;
+  subheading: string;
+  cards: AdmissionCard[];
+  tuitionNote: string;
+  tuitionButtonText: string;
+}
+
+/** Research */
+export interface ResearchStat {
+  icon: IconName;
+  value: string;
+  label: string;
+}
+
+export interface ResearchHighlight {
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+export interface ResearchContent {
+  image: string;
+  stats: ResearchStat[];
+  highlights: ResearchHighlight[];
+}
+
+/** Photo gallery */
+export interface GalleryApiItem {
+  id: number;
+  title: string;
+  subtitle: string | null;
+  imageUrl: string | null;
+  status: boolean;
+  types: string | null;
+}
+
+export interface GalleryItem {
+  src: string;
+  title: string;
+  category: string;
+  story: string;
+}
+
+/** Campus life */
+export interface CampusActivity {
+  icon: IconName;
+  title: string;
+  description: string;
+}
+
+export interface CampusLifeContent {
+  libraryImage: string;
+  sportsImage: string;
+  activities: CampusActivity[];
+}
+
+/** News & events */
+export interface NewsItem {
+  title: string;
+  category: string;
+  date: string;
+  excerpt: string;
+  image: string;
+  link: string;
+}
+
+export interface EventItem {
+  title: string;
+  date: string;
+  time: string;
+  venue: string;
+  category: string;
+}
+
+export interface NewsEventsContent {
+  news: NewsItem[];
+  events: EventItem[];
+}

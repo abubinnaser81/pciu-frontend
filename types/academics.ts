@@ -1,0 +1,189 @@
+export interface AcademicFaculty {
+  id: number;
+  name: string;
+  slug: string;
+  about: string;
+  dean?: {
+    id: number;
+    name: string;
+    designation: string;
+    imageUrl: string;
+  };
+  departments: {
+    id: number;
+    name: string;
+    shortName: string;
+    slug: string;
+  }[];
+}
+
+export interface FacultyDepartment {
+  id: number;
+  name: string;
+  subtitle?: string;
+  slug?: string;
+}
+
+export interface FacultyDean {
+  id: number;
+  name: string;
+  designation: string;
+  imageUrl?: string;
+  bio?: string;
+  shortBio?: string;
+}
+
+export interface FacultyDetail {
+  id: number;
+  name: string;
+  about?: string;
+  vision?: string;
+  mission?: string;
+  keyPoint?: string[];
+  dean?: FacultyDean;
+  departments: FacultyDepartment[];
+}
+export interface FreeRoom {
+  id: number;
+  name: string;
+  buildingId: number;
+  buildingName: string;
+}
+
+export interface TimeSlotOption {
+  id: number;
+  time: string;
+}
+
+export interface Semester {
+  id: number;
+  title: string;
+}
+
+export interface Exam {
+  id: number;
+  /** The semester this exam belongs to — drives the exam schedule's semester filter. */
+  semesterId?: number;
+  name: string;
+  routeFile: string | null;
+  startDate: string;
+  endDate: string;
+  status: string;
+}
+
+export interface ExamRoutine {
+  id: number;
+  examId: number;
+  department: string;
+  courseName: string;
+  courseCode: string;
+  building: string;
+  room: string;
+  timeSlot: string;
+  batch: string;
+  section: string;
+  date: string;
+  studentRange: string;
+  /** "DAY" / "EVENING" — omitted entirely when the API doesn't return one. */
+  shift?: string;
+  /** The parent exam's name, e.g. "Mid-Term Exam". */
+  examName?: string;
+  /** Relation ids — used by the faculty portal to match a teacher's exams
+   *  to the course/batch/section they teach (exam routines carry no teacher). */
+  courseId?: number;
+  batchId?: number;
+  sectionId?: number;
+}
+
+export interface ClassTimeSlot {
+  time: string;
+  slot: string;
+}
+
+export interface ClassRoutineItem {
+  id: number;
+  department: string;
+  courseName: string;
+  courseCode: string;
+  teacher: string;
+  building: string;
+  room: string;
+  timeSlot: string;
+  batch: string;
+  section: string;
+  day: string;
+  studentRange: string;
+  /** "DAY" / "EVENING" — omitted entirely when the API doesn't return one. */
+  shift?: string;
+  /** The assigned teacher's id — lets the faculty portal pick out the
+   *  signed-in teacher's own classes without matching on display names. */
+  teacherId?: number;
+  /** Relation ids — used by the faculty portal to match a teacher's exams
+   *  to the course/batch/section they teach (exam routines carry no teacher). */
+  courseId?: number;
+  batchId?: number;
+  sectionId?: number;
+  /** Only set once the API returns a semester on class routines — the class
+   *  schedule's semester filter stays hidden until then. */
+  semesterId?: number;
+}
+
+export interface GradeRow {
+  range: string;
+  letter: string;
+  point: string;
+  meaning: string;
+}
+
+export interface AttendanceMarkRow {
+  range: string;
+  marks: string;
+}
+
+export interface PolicyEntry {
+  title: string;
+  content: string;
+}
+
+export interface ResultStep {
+  step: string;
+  title: string;
+  desc: string;
+}
+
+export interface AcademicsPageContent {
+  examSchedule: {
+    exams: Exam[];
+    routines: ExamRoutine[];
+    guidelines: string[];
+  };
+  classSchedule: {
+    timeSlots: ClassTimeSlot[];
+    routines: ClassRoutineItem[];
+  };
+  resultGrading: {
+    dressCodeViolations: string[];
+    libraryCode: string[];
+    majorOffenses: string[];
+    minorOffenses: string[];
+    grades: GradeRow[];
+    attendanceMarks: AttendanceMarkRow[];
+  };
+  examinationPolicies: {
+    policies: PolicyEntry[];
+  };
+  academicResults: {
+    steps: ResultStep[];
+  };
+}
+
+export const ACADEMICS_SECTION_IDS = [
+  "exam-schedule",
+  "class-schedule",
+  "result-grading",
+  "examination-policies",
+  "academic-results",
+  "certification-verification",
+] as const;
+
+export type AcademicsSectionId = (typeof ACADEMICS_SECTION_IDS)[number];

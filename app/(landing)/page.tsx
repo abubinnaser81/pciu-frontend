@@ -1,0 +1,62 @@
+import HeroSection from "./_ui/HeroSection";
+import NoticeMarquee from "./_ui/NoticeMarquee";
+import VCMessage from "./_ui/VCMessage";
+import ProgramFinder from "./_ui/ProgramFinder";
+import Faculties from "./_ui/Faculties";
+import Admissions from "./_ui/Admissions";
+import Research from "./_ui/Research";
+import PhotoGallery from "./_ui/PhotoGallery";
+import CampusLife from "./_ui/CampusLife";
+import NewsEvents from "./_ui/NewsEvents";
+import Stats from "./_ui/Stats";
+import { getProgramFinderData } from "@/app/(landing)/_actions/programs";
+import { getHomeGallery } from "@/lib/api/home";
+import HomeSectionReveal from "./_ui/HomeSectionReveal";
+
+export default async function Page() {
+  const [gallery, programFinderData] = await Promise.all([
+    getHomeGallery(),
+    getProgramFinderData(),
+  ]);
+
+  return (
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 text-highlight-foreground  px-4 py-2 rounded-lg z-50 bg-white"
+      >
+        Skip to main content
+      </a>
+      <main id="main-content">
+        <HeroSection />
+        <Stats />
+        <NoticeMarquee />
+
+        <HomeSectionReveal>
+          <VCMessage />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <ProgramFinder {...programFinderData} />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <Faculties />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <Admissions />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <Research />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <PhotoGallery items={gallery} />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <CampusLife />
+        </HomeSectionReveal>
+        <HomeSectionReveal>
+          <NewsEvents />
+        </HomeSectionReveal>
+      </main>
+    </>
+  );
+}
